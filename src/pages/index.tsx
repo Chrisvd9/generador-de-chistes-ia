@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface ApiResponse {
   responseText: string;
@@ -21,8 +23,9 @@ function HomePage() {
       });
       const data: ApiResponse = await response.json();
       setResult(data.responseText);
+      toast.success("Chiste generado exitosamente!");
     } catch (error: any) {
-      alert(error.message);
+      toast.error(`Error al generar el chiste: ${error.message}`);
       return;
     }
 
@@ -37,13 +40,14 @@ function HomePage() {
   return (
     <div className="register mx-auto min-h-screen px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
+        <ToastContainer theme="dark" />
         <h1 className="text-center text-2xl font-bold text-[#19C37D] sm:text-3xl">
           Generador de chistes cortos con IA
         </h1>
         <p className="mx-auto mt-4 max-w-md text-center text-gray-400">
-          Genera chistes cortos con la ayuda de la IA de OpenAI. Simplemente introduce
-          un tema y obtendrás resultados divertidos. Por ejemplo, puedes
-          ingresar fútbol.
+          Genera chistes cortos con la ayuda de la IA de OpenAI. Simplemente
+          introduce un tema y obtendrás resultados divertidos. Por ejemplo,
+          puedes ingresar fútbol.
         </p>
         <form
           onSubmit={onSubmit}
